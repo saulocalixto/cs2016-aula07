@@ -17,6 +17,8 @@ public class Calendario {
             mesDesejado;
     private String anoConhecido, diaConhecido, mesConhecido;
     private int bissexto, semanaConhecida;
+    private int anoDesejadoi, diaDesejadoi, mesDesejadoi;
+    private int anoConhecidoi, diaConhecidoi, mesConhecidoi;
 
     public int diaSemana(String dataDesejada, String dataConhecida,
             int bissexto, int semanaConhecida) {
@@ -35,29 +37,29 @@ public class Calendario {
         ///////////Data desejada to INT//////////////////////////////
         anoDesejado = dataDesejada.substring(0, 4);
         char[] anoDesejadoArray = anoDesejado.toCharArray();
-        int anoDesejado = Integer.parseInt(new String(anoDesejadoArray));
+        anoDesejadoi = Integer.parseInt(new String(anoDesejadoArray));
 
         diaDesejado = dataDesejada.substring(6, 8);
         char[] diaDesejadoArray = diaDesejado.toCharArray();
-        int diaDesejado = Integer.parseInt(new String(diaDesejadoArray));
+        diaDesejadoi = Integer.parseInt(new String(diaDesejadoArray));
 
         mesDesejado = dataDesejada.substring(4, 6);
         char[] mesDesejadoArray = mesDesejado.toCharArray();
-        int mesDesejado = Integer.parseInt(new String(mesDesejadoArray));
+        mesDesejadoi = Integer.parseInt(new String(mesDesejadoArray));
         
         ///////////Data conhecida to INT//////////////////////////////
         
         anoConhecido = dataConhecida.substring(0, 4);
         char[] anoConhecidoArray = anoConhecido.toCharArray();
-        int anoConhecido = Integer.parseInt(new String(anoConhecidoArray));
+        anoConhecidoi = Integer.parseInt(new String(anoConhecidoArray));
 
         diaConhecido = dataConhecida.substring(6, 8);
         char[] diaConhecidoArray = diaConhecido.toCharArray();
-        int diaConhecido = Integer.parseInt(new String(diaConhecidoArray));
+        diaConhecidoi = Integer.parseInt(new String(diaConhecidoArray));
 
         mesConhecido = dataConhecida.substring(4, 6);
         char[] mesConhecidoArray = mesConhecido.toCharArray();
-        int mesConhecido = Integer.parseInt(new String(mesConhecidoArray));
+        mesConhecidoi = Integer.parseInt(new String(mesConhecidoArray));
     }
 
 }
