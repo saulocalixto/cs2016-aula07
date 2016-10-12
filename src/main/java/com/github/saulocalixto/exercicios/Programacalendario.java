@@ -11,9 +11,14 @@ package com.github.saulocalixto.exercicios;
  */
 public class Programacalendario {
     
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
-        Calendario calen = new Calendario("20160902", "20140503", 5, 4);
+        Calendario calen = new Calendario("20170917", "20160929", 5, 4);
    
-        calen.transformarStringemInt();
+        int opcao = calen.diaSemana();
+        System.out.println("Resultado = " + opcao);
     }
 }
