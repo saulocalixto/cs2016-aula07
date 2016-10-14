@@ -16,7 +16,7 @@ public class Programacalendario {
      * @param args
      */
     public static void main(String[] args) {
-        Calendario calen = new Calendario("20170917", "20160929", 5, 4);
+        Calendario calen = new Calendario("20171231", 2016, "20161016", 6);
    
         int opcao = calen.diaSemana();
         System.out.println("Resultado = " + opcao);

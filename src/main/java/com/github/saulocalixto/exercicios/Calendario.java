@@ -9,7 +9,7 @@ package com.github.saulocalixto.exercicios;
  *
  * @author Saulo Calixto
  * Algoritmo que pega uma data desejada e uma data conhecida e retorna o dia
- * da semana correspondente a data desejada, 0 (domingo) à 6 (sábado).
+ * da semana correspondente a data desejada, 0 (segunda) à 6 (domingo).
  */
 public class Calendario {
 
@@ -31,16 +31,15 @@ public class Calendario {
      * @param bissexto Pega um ano bissexto inserido pelo usuário
      * @param semanaConhecida dia da semana da data conhecida
      */
-    public Calendario(String dataDesejada, String dataConhecida,
-            int bissexto, int semanaConhecida) {
+    public Calendario(String dataDesejada, int bissexto,
+            String dataConhecida, int semanaConhecida) {
 
         this.dataDesejada = dataDesejada;
         this.dataConhecida = dataConhecida;
         this.bissexto = bissexto;
         this.semanaConhecida = semanaConhecida;
-
+        
         transformarStringemInt();
-
     }
 
     /**
@@ -49,38 +48,52 @@ public class Calendario {
      */
     
     public static void transformarStringemInt() {
+        
         ///////////dataDesejada to INT//////////////////////////////
+        
+        if(dataConhecida.length() == 8 && dataDesejada.length() == 8) {
 
-        char[] dataDesejadaArray = dataDesejada.toCharArray();
-        dataDesejadai = Integer.parseInt(new String(dataDesejadaArray));
+            char[] dataDesejadaArray = dataDesejada.toCharArray();
+            dataDesejadai = Integer.parseInt(new String(dataDesejadaArray));
 
-        anoDesejado = dataDesejada.substring(0, 4);
-        char[] anoDesejadoArray = anoDesejado.toCharArray();
-        anoDesejadoi = Integer.parseInt(new String(anoDesejadoArray));
+            anoDesejado = dataDesejada.substring(0, 4);
+            char[] anoDesejadoArray = anoDesejado.toCharArray();
+            anoDesejadoi = Integer.parseInt(new String(anoDesejadoArray));
 
-        diaDesejado = dataDesejada.substring(6, 8);
-        char[] diaDesejadoArray = diaDesejado.toCharArray();
-        diaDesejadoi = Integer.parseInt(new String(diaDesejadoArray));
+            diaDesejado = dataDesejada.substring(6, 8);
+            char[] diaDesejadoArray = diaDesejado.toCharArray();
+            diaDesejadoi = Integer.parseInt(new String(diaDesejadoArray));
 
-        mesDesejado = dataDesejada.substring(4, 6);
-        char[] mesDesejadoArray = mesDesejado.toCharArray();
-        mesDesejadoi = Integer.parseInt(new String(mesDesejadoArray));
+            mesDesejado = dataDesejada.substring(4, 6);
+            char[] mesDesejadoArray = mesDesejado.toCharArray();
+            mesDesejadoi = Integer.parseInt(new String(mesDesejadoArray));
 
-        ///////////dataConhecida to INT//////////////////////////////
-        char[] dataConhecidaArray = dataConhecida.toCharArray();
-        dataConhecidai = Integer.parseInt(new String(dataConhecidaArray));
+            ///////////dataConhecida to INT//////////////////////////////
+            char[] dataConhecidaArray = dataConhecida.toCharArray();
+            dataConhecidai = Integer.parseInt(new String(dataConhecidaArray));
 
-        anoConhecido = dataConhecida.substring(0, 4);
-        char[] anoConhecidoArray = anoConhecido.toCharArray();
-        anoConhecidoi = Integer.parseInt(new String(anoConhecidoArray));
+            anoConhecido = dataConhecida.substring(0, 4);
+            char[] anoConhecidoArray = anoConhecido.toCharArray();
+            anoConhecidoi = Integer.parseInt(new String(anoConhecidoArray));
 
-        diaConhecido = dataConhecida.substring(6, 8);
-        char[] diaConhecidoArray = diaConhecido.toCharArray();
-        diaConhecidoi = Integer.parseInt(new String(diaConhecidoArray));
+            diaConhecido = dataConhecida.substring(6, 8);
+            char[] diaConhecidoArray = diaConhecido.toCharArray();
+            diaConhecidoi = Integer.parseInt(new String(diaConhecidoArray));
 
-        mesConhecido = dataConhecida.substring(4, 6);
-        char[] mesConhecidoArray = mesConhecido.toCharArray();
-        mesConhecidoi = Integer.parseInt(new String(mesConhecidoArray));
+            mesConhecido = dataConhecida.substring(4, 6);
+            char[] mesConhecidoArray = mesConhecido.toCharArray();
+            mesConhecidoi = Integer.parseInt(new String(mesConhecidoArray));
+        } else {
+            dataDesejadai = -1;
+            anoDesejadoi = -1;
+            diaDesejadoi = -1;
+            mesDesejadoi = 12;
+            
+            dataConhecidai = 0;
+            anoConhecidoi = 0;
+            diaConhecidoi = 0;
+            mesConhecidoi = 12;
+        }
     }
 
     /**
@@ -115,17 +128,23 @@ public class Calendario {
      */
     public static int testarExcessoes() {
 
-        if (diaDesejadoi > diaMes[verificarBissexto
-        (anoDesejadoi)][mesDesejadoi - 1]
-                || diaDesejadoi < 1) {
+        if(mesConhecidoi > 12) {
+            return - 1;
+        } else if (mesDesejadoi > 12){
+            return -1;
+        } else if (diaDesejadoi > diaMes[verificarBissexto
+        (anoDesejadoi)][mesDesejadoi - 1]) {
             return -1;
         } else if (diaConhecidoi > diaMes[verificarBissexto
-        (anoConhecidoi)][mesConhecidoi - 1]
-                || diaConhecidoi < 1) {
+        (anoConhecidoi)][mesConhecidoi - 1]) {
             return -1;
         } else if (semanaConhecida < 0 || semanaConhecida > 6) {
             return -1;
-        } else if (bissexto < 0) {
+        } else if (bissexto <= 0) {
+            return -1;
+        } else if(dataConhecida.length() < 8){
+            return -1;
+        } else if(dataDesejada.length() < 8) {
             return -1;
         } else {
             return 1;
@@ -156,6 +175,7 @@ public class Calendario {
 
         diaConhecidoi++;
         semanaDesejada++;
+        
         if (diaConhecidoi > diaMes[verificarBissexto
         (anoConhecidoi)][mesConhecidoi - 1]) {
             diaConhecidoi = 1;
@@ -180,16 +200,22 @@ public class Calendario {
 
         diaConhecidoi--;
         semanaDesejada--;
+        
         if (diaConhecidoi < 1) {
-            diaConhecidoi = diaMes[verificarBissexto
-        (anoConhecidoi)][mesConhecidoi - 1];
             mesConhecidoi--;
+            if(mesConhecidoi != 0) {
+                diaConhecidoi = diaMes[verificarBissexto(anoConhecidoi)]
+                        [mesConhecidoi - 1];
+            } else {
+                diaConhecidoi = diaMes[verificarBissexto(anoConhecidoi)]
+                        [mesConhecidoi];
+            }
         }
         if (mesConhecidoi < 1) {
-            diaConhecidoi = diaMes[verificarBissexto
-        (anoConhecidoi)][mesConhecidoi - 1];
             mesConhecidoi = 12;
             anoConhecidoi--;
+            diaConhecidoi = diaMes[verificarBissexto(anoConhecidoi)]
+                    [mesConhecidoi - 1];
         }
         if (semanaDesejada < 0) {
             semanaDesejada = 6;
