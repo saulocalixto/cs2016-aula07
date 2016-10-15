@@ -1,20 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.github.saulocalixto.exercicios;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
+ * Só três operações são requisitadas: várias vezes o construtor;
+ * o método estático transformarStringemInt e diaSemana. Curiosamente,
+ * os dois últimos são repetições para o último objeto criado, já que são
+ * métodos static(!!???). Isso é fruto do design "curioso" que empregou,
+ * vamos melhorar...
  *
- * @author saulocalixto
+ * Em tempo, está incompatível com o que foi pedido!!!!!!!!
+ *
  */
 public class CalendarioTest {
     Calendario calendariocerto = new Calendario("20160902", 2016, "20130430", 5);
@@ -24,47 +20,54 @@ public class CalendarioTest {
     Calendario calendariodiaerrado = new Calendario("20170229", 2016, "20130430", 5);
     Calendario calendariobissextoerrado = new Calendario("20170229", -10, "20130430", 5);
     Calendario calendariodiacoerrado = new Calendario("20170229", 2017, "20130435", 5);
+
     @Test
     public void entradaValidaStringToInt () {
-        calendariodatagrande.transformarStringemInt();
+        Calendario.transformarStringemInt();
     }
+
     @Test
     public void entradaInvalidaStringToInt () {
-        calendariocerto.transformarStringemInt();
+        Calendario.transformarStringemInt();
     }
     
     @Test
     public void entradavalidaDiaSemana () {
-        calendariocerto.diaSemana();
+        Calendario.diaSemana();
     }
+
     @Test
     public void entradaInvalidaDiaSemana () {
-        calendariodatagrande.diaSemana();
+        Calendario.diaSemana();
     }
+
     @Test
     public void semExcessaotestarExcessoes () {
-        calendariocerto.diaSemana();
+        Calendario.diaSemana();
     }
     
     @Test
     public void mesErradotestarExcessoes () {
-        calendariomesconhecidoerrado.diaSemana();
+        Calendario.diaSemana();
     }
+
     @Test
     public void mesErrado2testarExcessoes () {
-        calendariomesconhecido2errado.diaSemana();
+        Calendario.diaSemana();
     }
+
     @Test
     public void diaErradotestarExcessoes () {
-        calendariodiaerrado.diaSemana();
+        Calendario.diaSemana();
     }
+
     @Test
     public void diaConhecidoErradotestarExcessoes () {
-        calendariodiacoerrado.diaSemana();
+        Calendario.diaSemana();
     }
+
     @Test
     public void bissextoErradotestarExcessoes () {
-        calendariobissextoerrado.diaSemana();
+        Calendario.diaSemana();
     }
-    
 }
