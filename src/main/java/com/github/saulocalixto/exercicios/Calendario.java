@@ -97,6 +97,39 @@ public class Calendario {
     }
 
     /**
+     * Obtém do dia da semana para uma dada data, um ano assumido como bissexto e
+     * uma data cujo dia da semana é conhecio.
+     *
+     * @param data Data cujo dia da semana é desejado.
+     *
+     * @param bissexto Um ano assumido como bissexto.
+     *
+     * @param conhecida Uma data cujo dia da semana é conhecido.
+     *
+     * @param ds Dia da semana da data fornecida acima.
+     *
+     * @return O dia da semana. Zero é segunda-feira, um é terça-feira até
+     * 6, que representa um domingo.
+     */
+    public static int diaSemana(int data, int bissexto, int conhecida, int ds) {
+        // Aqui vou colocar conforme você fez, veja o esforço!!!!
+
+        // Seu código exige fazer essa chamada (construtor) apenas para
+        // definir valores
+        // iniciais para as variáveis estáticas, em tempo, isso é
+        // muito ruim, muito, esqueça disso!!!!!!!
+
+        new Calendario(
+                Integer.toString(data), // Por que essa conversão?????
+                bissexto,
+                Integer.toString(conhecida), // Qual a motivação para String???
+                ds);
+
+        // Olhe como é estranho isso!
+        return diaSemana();
+    }
+
+    /**
      *
      * @return Retorna o dia da semana da dataDesejada.
      */

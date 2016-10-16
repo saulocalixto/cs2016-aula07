@@ -1,70 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.github.saulocalixto.exercicios;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 /**
+ * Só três operações são requisitadas: várias vezes o construtor;
+ * o método estático transformarStringemInt e diaSemana. Curiosamente,
+ * os dois últimos são repetições para o último objeto criado, já que são
+ * métodos static(!!???). Isso é fruto do design "curioso" que empregou,
+ * vamos melhorar...
  *
- * @author saulocalixto
+ * Em tempo, está incompatível com o que foi pedido!!!!!!!!
+ *
  */
 public class CalendarioTest {
+
+    // 30/04/2013 é terça-feira, salvo engano, portanto, o dia da semana é 1 (em vez de 5)
+    // Deixarei essa chamada abaixo apenas para você se lembrar!! Depois remova!
     Calendario calendariocerto = new Calendario("20160902", 2016, "20130430", 5);
-    Calendario calendariodatagrande = new Calendario("520160902", 2016, "20130430", 5);
-    Calendario calendariomesconhecidoerrado = new Calendario("20161502", 2016, "20131230", 5);
-    Calendario calendariomesconhecido2errado = new Calendario("20160702", 2016, "20131530", 5);
-    Calendario calendariodiaerrado = new Calendario("20170229", 2016, "20130430", 5);
-    Calendario calendariobissextoerrado = new Calendario("20170229", -10, "20130430", 5);
-    Calendario calendariodiacoerrado = new Calendario("20170229", 2017, "20130435", 5);
+
     @Test
-    public void entradaValidaStringToInt () {
-        calendariodatagrande.transformarStringemInt();
+    public void DoisSetembro2016CaiNaSextaAssumindoQueArgsCorretos() {
+        assertEquals(4, Calendario.diaSemana(20160902, 2016, 20130430, 1));
     }
-    @Test
-    public void entradaInvalidaStringToInt () {
-        calendariocerto.transformarStringemInt();
-    }
-    
-    @Test
-    public void entradavalidaDiaSemana () {
-        calendariocerto.diaSemana();
-    }
-    @Test
-    public void entradaInvalidaDiaSemana () {
-        calendariodatagrande.diaSemana();
-    }
-    @Test
-    public void semExcessaotestarExcessoes () {
-        calendariocerto.diaSemana();
-    }
-    
-    @Test
-    public void mesErradotestarExcessoes () {
-        calendariomesconhecidoerrado.diaSemana();
-    }
-    @Test
-    public void mesErrado2testarExcessoes () {
-        calendariomesconhecido2errado.diaSemana();
-    }
-    @Test
-    public void diaErradotestarExcessoes () {
-        calendariodiaerrado.diaSemana();
-    }
-    @Test
-    public void diaConhecidoErradotestarExcessoes () {
-        calendariodiacoerrado.diaSemana();
-    }
-    @Test
-    public void bissextoErradotestarExcessoes () {
-        calendariobissextoerrado.diaSemana();
-    }
-    
 }
