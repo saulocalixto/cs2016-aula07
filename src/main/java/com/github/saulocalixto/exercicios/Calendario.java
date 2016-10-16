@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2016. Engenharia de Software - Instituto de Informática (UFG)
+ * Creative Commons Attribution 4.0 International License.
  */
 package com.github.saulocalixto.exercicios;
 
@@ -13,90 +12,15 @@ package com.github.saulocalixto.exercicios;
  */
 public class Calendario {
 
-    private static int[][] diaMes = {{31, 28, 31, 30, 31, 30, 31,
+    private static final int[][] DIAMES = {{31, 28, 31, 30, 31, 30, 31,
         31, 30, 31, 30, 31}, {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}};
-    private static String dataDesejada, dataConhecida, anoDesejado, diaDesejado,
-            mesDesejado;
-    private static String anoConhecido, diaConhecido, mesConhecido;
+    private static int dataDesejada, dataConhecida;
     private static int bissexto, semanaConhecida;
     private static int anoDesejadoi, diaDesejadoi, mesDesejadoi;
     private static int anoConhecidoi, diaConhecidoi, mesConhecidoi;
     private static int semanaDesejada;
-    private static int dataDesejadai, dataConhecidai;
-
-    /**
-     *
-     * @param dataDesejada Pega data a qual se deseja saber o dia da semana
-     * @param dataConhecida Pega uma data a qual se conhece o dia da semana
-     * @param bissexto Pega um ano bissexto inserido pelo usuário
-     * @param semanaConhecida dia da semana da data conhecida
-     */
-    public Calendario(String dataDesejada, int bissexto,
-            String dataConhecida, int semanaConhecida) {
-
-        this.dataDesejada = dataDesejada;
-        this.dataConhecida = dataConhecida;
-        this.bissexto = bissexto;
-        this.semanaConhecida = semanaConhecida;
-        
-        transformarStringemInt();
-    }
-
-    /**
-     *Capturamos a dataDesejada e a dataConhecida em String e agora convertemos
-     * para int
-     */
     
-    public static void transformarStringemInt() {
-        
-        ///////////dataDesejada to INT//////////////////////////////
-        
-        if(dataConhecida.length() == 8 && dataDesejada.length() == 8) {
-
-            char[] dataDesejadaArray = dataDesejada.toCharArray();
-            dataDesejadai = Integer.parseInt(new String(dataDesejadaArray));
-
-            anoDesejado = dataDesejada.substring(0, 4);
-            char[] anoDesejadoArray = anoDesejado.toCharArray();
-            anoDesejadoi = Integer.parseInt(new String(anoDesejadoArray));
-
-            diaDesejado = dataDesejada.substring(6, 8);
-            char[] diaDesejadoArray = diaDesejado.toCharArray();
-            diaDesejadoi = Integer.parseInt(new String(diaDesejadoArray));
-
-            mesDesejado = dataDesejada.substring(4, 6);
-            char[] mesDesejadoArray = mesDesejado.toCharArray();
-            mesDesejadoi = Integer.parseInt(new String(mesDesejadoArray));
-
-            ///////////dataConhecida to INT//////////////////////////////
-            char[] dataConhecidaArray = dataConhecida.toCharArray();
-            dataConhecidai = Integer.parseInt(new String(dataConhecidaArray));
-
-            anoConhecido = dataConhecida.substring(0, 4);
-            char[] anoConhecidoArray = anoConhecido.toCharArray();
-            anoConhecidoi = Integer.parseInt(new String(anoConhecidoArray));
-
-            diaConhecido = dataConhecida.substring(6, 8);
-            char[] diaConhecidoArray = diaConhecido.toCharArray();
-            diaConhecidoi = Integer.parseInt(new String(diaConhecidoArray));
-
-            mesConhecido = dataConhecida.substring(4, 6);
-            char[] mesConhecidoArray = mesConhecido.toCharArray();
-            mesConhecidoi = Integer.parseInt(new String(mesConhecidoArray));
-        } else {
-            dataDesejadai = -1;
-            anoDesejadoi = -1;
-            diaDesejadoi = -1;
-            mesDesejadoi = 12;
-            
-            dataConhecidai = 0;
-            anoConhecidoi = 0;
-            diaConhecidoi = 0;
-            mesConhecidoi = 12;
-        }
-    }
-
-    /**
+     /**
      * Obtém do dia da semana para uma dada data, um ano assumido como bissexto e
      * uma data cujo dia da semana é conhecio.
      *
@@ -112,39 +36,58 @@ public class Calendario {
      * 6, que representa um domingo.
      */
     public static int diaSemana(int data, int bissexto, int conhecida, int ds) {
-        // Aqui vou colocar conforme você fez, veja o esforço!!!!
+        
+        Calendario.dataDesejada = data;
+        Calendario.dataConhecida = conhecida;
+        Calendario.bissexto = bissexto;
+        Calendario.semanaConhecida = ds;
+        
+        separarDatas(dataDesejada, dataConhecida);
 
-        // Seu código exige fazer essa chamada (construtor) apenas para
-        // definir valores
-        // iniciais para as variáveis estáticas, em tempo, isso é
-        // muito ruim, muito, esqueça disso!!!!!!!
+        return obterSemana();
+    }
 
-        new Calendario(
-                Integer.toString(data), // Por que essa conversão?????
-                bissexto,
-                Integer.toString(conhecida), // Qual a motivação para String???
-                ds);
-
-        // Olhe como é estranho isso!
-        return diaSemana();
+    /**
+     *Conforme solicitação do cliente capturamos a data no formado aammdd.
+     *Agora para podermos fazer os cálculos separamos a data em ano, mês e dia
+     *O Método separarDatas faz esse serviço.
+     * @param dataDesejada Data da qual deseja-se saber o dia da semana
+     * @param dataConhecida Data da qual sabemos o dia da semana
+     */
+    
+    public static void separarDatas(int dataDesejada, int dataConhecida) {
+        
+        int aux;
+        
+        aux = dataDesejada / 100;
+        anoDesejadoi = aux / 100;
+        mesDesejadoi = aux % 100;
+        diaDesejadoi = dataDesejada % 100;
+        
+        aux = dataConhecida / 100;
+        anoConhecidoi = aux / 100;
+        mesConhecidoi = aux % 100;
+        diaConhecidoi = dataConhecida % 100;
     }
 
     /**
      *
      * @return Retorna o dia da semana da dataDesejada.
+     * O método incrementa ou decrementa a data conhecida, até chegar na data
+     * desejada e assim obter o dia da semana
      */
-    public static int diaSemana() {
+    public static int obterSemana() {
 
         if (testarExcessoes() == -1) {
             return testarExcessoes();
         }
         semanaDesejada = semanaConhecida;
-        if (dataDesejadai > dataConhecidai) {
+        if (dataDesejada > dataConhecida) {
             while (anoDesejadoi != anoConhecidoi || diaDesejadoi != diaConhecidoi
                     || mesDesejadoi != mesConhecidoi) {
                 incrementarData();
             }
-        } else if (dataDesejadai < dataConhecidai) {
+        } else if (dataDesejada < dataConhecida) {
             while (anoDesejadoi != anoConhecidoi || diaDesejadoi != diaConhecidoi
                     || mesDesejadoi != mesConhecidoi) {
                 decrementarData();
@@ -156,33 +99,42 @@ public class Calendario {
 
     /**
      *
-     * @return Retorna 1 caso não retorne excessão, retorna -1 caso retorne
-     * excessão.
+     * @return Retorna 1 caso não retorne excessão.
+     * Retorna -1 caso retorne excessão.
      */
     public static int testarExcessoes() {
-
-        if(mesConhecidoi > 12) {
-            return - 1;
-        } else if (mesDesejadoi > 12){
-            return -1;
-        } else if (diaDesejadoi > diaMes[verificarBissexto
-        (anoDesejadoi)][mesDesejadoi - 1]) {
-            return -1;
-        } else if (diaConhecidoi > diaMes[verificarBissexto
-        (anoConhecidoi)][mesConhecidoi - 1]) {
-            return -1;
-        } else if (semanaConhecida < 0 || semanaConhecida > 6) {
-            return -1;
-        } else if (bissexto <= 0) {
-            return -1;
-        } else if(dataConhecida.length() < 8){
-            return -1;
-        } else if(dataDesejada.length() < 8) {
-            return -1;
-        } else {
-            return 1;
+        
+        int excessao = 1;
+        
+        if (dataDesejada > 99999999) {
+            excessao =  -1;
         }
-
+        if(dataDesejada < 10000000) {
+            excessao = -1;
+        }
+        if (dataConhecida > 99999999) {
+            excessao = -1;
+        }
+        if (dataConhecida < 10000000) {
+            excessao = -1;
+        }
+        if(mesConhecidoi > 12) {
+            excessao = -1;
+        }else if (mesDesejadoi > 12){
+            excessao = -1;
+        }else if (diaDesejadoi > DIAMES[verificarBissexto
+        (anoDesejadoi)][mesDesejadoi - 1]) {
+            excessao = -1;
+        }else if (diaConhecidoi > DIAMES[verificarBissexto
+        (anoConhecidoi)][mesConhecidoi - 1]) {
+            excessao = -1;
+        }else if (semanaConhecida < 0 || semanaConhecida > 6) {
+            excessao = -1;
+        }else if (bissexto <= 0) {
+            excessao = -1;
+        }
+        
+        return (excessao);
     }
 
     /**
@@ -209,7 +161,7 @@ public class Calendario {
         diaConhecidoi++;
         semanaDesejada++;
         
-        if (diaConhecidoi > diaMes[verificarBissexto
+        if (diaConhecidoi > DIAMES[verificarBissexto
         (anoConhecidoi)][mesConhecidoi - 1]) {
             diaConhecidoi = 1;
             mesConhecidoi++;
@@ -222,7 +174,6 @@ public class Calendario {
         if (semanaDesejada > 6) {
             semanaDesejada = 0;
         }
-
     }
 
     /**
@@ -237,22 +188,21 @@ public class Calendario {
         if (diaConhecidoi < 1) {
             mesConhecidoi--;
             if(mesConhecidoi != 0) {
-                diaConhecidoi = diaMes[verificarBissexto(anoConhecidoi)]
+                diaConhecidoi = DIAMES[verificarBissexto(anoConhecidoi)]
                         [mesConhecidoi - 1];
             } else {
-                diaConhecidoi = diaMes[verificarBissexto(anoConhecidoi)]
+                diaConhecidoi = DIAMES[verificarBissexto(anoConhecidoi)]
                         [mesConhecidoi];
             }
         }
         if (mesConhecidoi < 1) {
             mesConhecidoi = 12;
             anoConhecidoi--;
-            diaConhecidoi = diaMes[verificarBissexto(anoConhecidoi)]
+            diaConhecidoi = DIAMES[verificarBissexto(anoConhecidoi)]
                     [mesConhecidoi - 1];
         }
         if (semanaDesejada < 0) {
             semanaDesejada = 6;
         }
-
     }
 }
