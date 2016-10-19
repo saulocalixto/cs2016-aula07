@@ -4,15 +4,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Só três operações são requisitadas: várias vezes o construtor; o método
- * estático transformarStringemInt e diaSemana. Curiosamente, os dois últimos
- * são repetições para o último objeto criado, já que são métodos static(!!???).
- * Isso é fruto do design "curioso" que empregou, vamos melhorar...
- *
- * Em tempo, está incompatível com o que foi pedido!!!!!!!!
- *
- */
 public class CalendarioTest {
 
     /**

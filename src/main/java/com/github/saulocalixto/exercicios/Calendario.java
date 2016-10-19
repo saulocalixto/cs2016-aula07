@@ -58,7 +58,7 @@ public final class Calendario {
 
     /**
      * Número usado para poder separar a data. Usado também no método
-     * verificarBissexto().
+     * verificarBissexto(), compreende um período de 100 anos.
      */
     private static final int SEPARADOR = 100;
 
@@ -76,13 +76,13 @@ public final class Calendario {
      * Constante para se usar no método verificarBissexto() eliminando números
      * mágicos.
      */
-    private static final int Q = 4;
+    private static final int QUADRIENIO = 4;
 
         /**
      * Constante para se usar no método verificarBissexto() eliminando números
      * mágicos.
      */
-    private static final int QCENTOS = 400;
+    private static final int QUATROSECULOS = 400;
 
     /**
      * semanaDesejada é a variável que irá guardar a semana que o usuário
@@ -212,8 +212,8 @@ public final class Calendario {
      */
     public static int verificarBissexto(final int ano) {
 
-        if ((ano % Q == 0 && ano % SEPARADOR != 0) || ano % QCENTOS == 0
-                || ano == bissexto) {
+        if ((ano % QUADRIENIO == 0 && ano % SEPARADOR != 0)
+                || ano % QUATROSECULOS == 0 || ano == bissexto) {
             return 1;
         } else {
             return 0;
